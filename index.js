@@ -8,6 +8,7 @@ const cors = require("cors");
 const db = require("./db/connection");
 
 // Add Middleware
+app.use(express.static("static"));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false, limit: "10mb" }));
 app.use(bodyParser.json({ limit: "10mb" }));

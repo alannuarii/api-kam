@@ -18,7 +18,7 @@ const convertBase64ToFile = (base64Data, targetDir, fileName) => {
 const savePhotos = async (req, res) => {
   try {
     const { foto, label } = req.body;
-    const targetDir = path.join(__dirname, "..", "statis", "img", "training", "security");
+    const targetDir = path.join(__dirname, "..", "static", "img", "training", "security");
     const randomNumber = Math.floor(Math.random() * 90000) + 10000;
     const fileName = `${label}_${randomNumber}.jpeg`;
 
@@ -33,7 +33,7 @@ const savePhotos = async (req, res) => {
 
 const getPhotos = async (req, res) => {
   try {
-    const targetDir = path.join(__dirname, "..", "statis", "img", "training", "security");
+    const targetDir = path.join(__dirname, "..", "static", "img", "training", "security");
 
     fs.readdir(targetDir, (err, files) => {
       if (err) {
@@ -42,7 +42,7 @@ const getPhotos = async (req, res) => {
       } else {
         const photos = files.map((file) => ({
           filename: file,
-          url: `/statis/img/training/security/${file}`,
+          url: `/static/img/training/security/${file}`,
           label: file.split("_")[0],
         }));
         res.status(200).json({ message: "Berhasil mengambil data", data: photos });
