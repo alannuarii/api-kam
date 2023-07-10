@@ -6,9 +6,10 @@ const morgan = require("morgan");
 const router = require("./router");
 const cors = require("cors");
 const db = require("./db/connection");
+const path = require("path");
 
 // Add Middleware
-app.use(express.static("static"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false, limit: "10mb" }));
 app.use(bodyParser.json({ limit: "10mb" }));

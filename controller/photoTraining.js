@@ -54,4 +54,24 @@ const getPhotos = async (req, res) => {
   }
 };
 
-module.exports = { savePhotos, getPhotos };
+const deletePhoto = async (req, res) => {
+  try {
+    const url = req.body.url;
+
+    const filePath = path.join(__dirname, "..", url);
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error("Gagal menghapus file:", err);
+        res.status(500).json({ message: "Data gagal dihapus" });
+      } else {
+        console.log("File berhasil dihapus:", filePath);
+        res.status(200).json({ message: "Data berhasil dihapus" });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Data gagal dihapus" });
+  }
+};
+
+module.exports = { savePhotos, getPhotos, deletePhoto };
