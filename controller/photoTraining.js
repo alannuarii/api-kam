@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+require("dotenv").config();
 
 const convertBase64ToFile = (base64Data, targetDir, fileName) => {
   const base64Image = base64Data.split(";base64,").pop();
@@ -34,6 +35,7 @@ const savePhotos = async (req, res) => {
 const getPhotos = async (req, res) => {
   try {
     const targetDir = path.join(__dirname, "..", "static", "img", "training", "security");
+    console.log(targetDir);
 
     fs.readdir(targetDir, (err, files) => {
       if (err) {
@@ -42,7 +44,7 @@ const getPhotos = async (req, res) => {
       } else {
         const photos = files.map((file) => ({
           filename: file,
-          url: `/static/img/training/security/${file}`,
+          url: `${process.env.ENDPOINT}/static/img/training/security/${file}`,
           label: file.split("_")[0],
         }));
         res.status(200).json({ message: "Berhasil mengambil data", data: photos });
